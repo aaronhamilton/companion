@@ -30,8 +30,8 @@ def mdump(matrix):
 			print(format(ele, "13.6g") + ", ", end = " ")
 		print("],")
 
-def mdumpcompton(matrix):
-	"""Dump a matrix in compton's format."""
+def mdumpcompanion(matrix):
+	"""Dump a matrix in companion's format."""
 	width = len(matrix[0])
 	height = len(matrix)
 	print("{},{},".format(width, height), end = '')
@@ -113,7 +113,7 @@ parser.add_argument('type', help='Type of convolution kernel. May be "gaussian" 
 parser.add_argument('width', type=int, help='Width of convolution kernel. Must be an odd number.')
 parser.add_argument('height', nargs='?', type=int, help='Height of convolution kernel. Must be an odd number. Equals to width if omitted.')
 parser.add_argument('-f', '--factor', nargs='+', help='Factors of the convolution kernel, in name=value format.')
-parser.add_argument('--dump-compton', action='store_true', help='Dump in compton format.')
+parser.add_argument('--dump-companion', action='store_true', help='Dump in companion format.')
 args = parser.parse_args()
 
 width = args.width
@@ -126,7 +126,7 @@ factors = args_readfactors(args.factor)
 
 funcs = dict(gaussian = gen_gaussian, box = gen_box)
 matrix = (funcs.get(args.type, gen_invalid))(width, height, factors)
-if args.dump_compton:
-	mdumpcompton(matrix)
+if args.dump_companion:
+	mdumpcompanion(matrix)
 else:
 	mdump(matrix)

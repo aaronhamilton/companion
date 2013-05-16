@@ -7,8 +7,8 @@ if (NOT CPACK_SYSTEM_NAME)
 endif ()
 
 # == Basic information ==
-set(CPACK_PACKAGE_NAME "compton")
-set(CPACK_PACKAGE_VENDOR "chjj")
+set(CPACK_PACKAGE_NAME "companion")
+set(CPACK_PACKAGE_VENDOR "aaronhamilton")
 set(CPACK_PACKAGE_VERSION_MAJOR "0")
 set(CPACK_PACKAGE_VERSION_MINOR "0")
 set(CPACK_PACKAGE_VERSION_PATCH "0")

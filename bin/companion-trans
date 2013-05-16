@@ -1,28 +1,28 @@
 #!/bin/sh
 
 #
-# compton-trans
+# companion-trans (from compton-trans)
 # transset in a bash script
 # Copyright (c) 2011-2012, Christopher Jeffrey
 #
 
 # Usage:
-#  $ compton-trans [options] [+|-]opacity
+#  $ companion-trans [options] [+|-]opacity
 # By window id
-#   $ compton-trans -w "$WINDOWID" 75
+#   $ companion-trans -w "$WINDOWID" 75
 # By name
-#   $ compton-trans -n "urxvt" 75
+#   $ companion-trans -n "urxvt" 75
 # By current window
-#   $ compton-trans -c 75
+#   $ companion-trans -c 75
 # By selection
-#   $ compton-trans 75
-#   $ compton-trans -s 75
+#   $ companion-trans 75
+#   $ companion-trans -s 75
 # Increment current window 5%
-#   $ compton-trans -c +5
+#   $ companion-trans -c +5
 # Delete current window's opacity
-#   $ compton-trans -c --delete
+#   $ companion-trans -c --delete
 # Reset all windows
-#   $ compton-trans --reset
+#   $ companion-trans --reset
 
 # "command" is a shell built-in, faster than "which"
 if test -z "$(command -v xprop)" -o -z "$(command -v xwininfo)"; then
@@ -51,8 +51,8 @@ done
 
 # This takes into account the fact that getopts stops on
 # any argument it doesn't recongize or errors on. This
-# allows for things like `compton-trans -5` as well
-# as `compton-trans -c +5 -s` (contrived example).
+# allows for things like `companion-trans -5` as well
+# as `companion-trans -c +5 -s` (contrived example).
 while test $# -gt 0; do
   # Reset option index
   OPTIND=1

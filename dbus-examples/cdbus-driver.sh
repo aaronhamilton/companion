@@ -14,15 +14,15 @@ if [ -z "$dpy" ]; then
   exit 1
 fi
 
-service="com.github.chjj.compton.${dpy}"
-interface='com.github.chjj.compton'
-object='/com/github/chjj/compton'
+service="com.github.aaronhamilton.companion.${dpy}"
+interface='com.github.aaronhamilton.companion'
+object='/com/github/aaronhamilton/companion'
 type_win='uint32'
 type_enum='uint16'
 
 # === DBus methods ===
 
-# List all window ID compton manages (except destroyed ones)
+# List all window ID companion manages (except destroyed ones)
 dbus-send --print-reply --dest="$service" "$object" "${interface}.list_win"
 
 # Ensure we are tracking focus
@@ -41,7 +41,7 @@ else
   echo "Cannot find focused window."
 fi
 
-# Reset compton
+# Reset companion
 sleep 3
 dbus-send --print-reply --dest="$service" "$object" "${interface}.reset"
 

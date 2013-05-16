@@ -1,9 +1,10 @@
 /*
- * Compton - a compositor for X11
+ * Companion - a compositor for X11
  *
- * Based on `xcompmgr` - Copyright (c) 2003, Keith Packard
+ * Based on `compton` Copyright (c) 2011-2013, Christopher Jeffrey
+ * In-turn based on `xcompmgr` - Copyright (c) 2003, Keith Packard
  *
- * Copyright (c) 2011-2013, Christopher Jeffrey
+ * Copyright (c) 2013, Aaron Hamilton
  * See LICENSE for more information.
  *
  */
@@ -757,7 +758,7 @@ c2_l_postprocess(session_t *ps, c2_l_t *pleaf) {
     }
   }
 
-  // Enable specific tracking options in compton if needed by the condition
+  // Enable specific tracking options in companion if needed by the condition
   // TODO: Add track_leader
   if (pleaf->predef) {
     switch (pleaf->predef) {

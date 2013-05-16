@@ -12,7 +12,7 @@ PACKAGES = x11 xcomposite xfixes xdamage xrender xext xrandr
 LIBS = -lm -lrt
 INCS =
 
-OBJS = compton.o
+OBJS = companion.o
 
 # === Configuration flags ===
 CFG = -std=c99
@@ -68,8 +68,8 @@ ifeq "$(NO_C2)" ""
 endif
 
 # === Version string ===
-COMPTON_VERSION ?= git-$(shell git describe --always --dirty)-$(shell git log -1 --date=short --pretty=format:%cd)
-CFG += -DCOMPTON_VERSION="\"$(COMPTON_VERSION)\""
+COMPANION_VERSION ?= git-$(shell git describe --always --dirty)-$(shell git log -1 --date=short --pretty=format:%cd)
+CFG += -DCOMPANIONN_VERSION="\"$(COMPANION_VERSION)\""
 
 LDFLAGS ?= -Wl,-O1 -Wl,--as-needed
 
@@ -89,12 +89,12 @@ INCS += $(shell pkg-config --cflags $(PACKAGES))
 
 CFLAGS += -Wall
 
-BINS = compton bin/compton-trans
-MANPAGES = man/compton.1 man/compton-trans.1
+BINS = companion bin/companion-trans
+MANPAGES = man/companion.1 man/companion-trans.1
 MANPAGES_HTML = $(addsuffix .html,$(MANPAGES))
 
 # === Recipes ===
-.DEFAULT_GOAL := compton
+.DEFAULT_GOAL := companion
 
 src/.clang_complete: Makefile
 	@(for i in $(filter-out -O% -DNDEBUG, $(CFG) $(CFLAGS) $(INCS)); do echo "$$i"; done) > $@
@@ -102,7 +102,7 @@ src/.clang_complete: Makefile
 %.o: src/%.c src/%.h src/common.h
 	$(CC) $(CFG) $(CFLAGS) $(INCS) -c src/$*.c
 
-compton: $(OBJS)
+companion: $(OBJS)
 	$(CC) $(CFG) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
 
 man/%.1: man/%.1.asciidoc
@@ -117,25 +117,25 @@ install: $(BINS) docs
 	@install -d "$(DESTDIR)$(BINDIR)" "$(DESTDIR)$(MANDIR)" "$(DESTDIR)$(APPDIR)"
 	@install -m755 $(BINS) "$(DESTDIR)$(BINDIR)"/ 
 	@install -m644 $(MANPAGES) "$(DESTDIR)$(MANDIR)"/
-	@install -m644 compton.desktop "$(DESTDIR)$(APPDIR)"/
+	@install -m644 companion.desktop "$(DESTDIR)$(APPDIR)"/
 ifneq "$(DOCDIR)" ""
 	@install -d "$(DESTDIR)$(DOCDIR)"
-	@install -m644 README.md compton.sample.conf "$(DESTDIR)$(DOCDIR)"/
+	@install -m644 README.md companion.sample.conf "$(DESTDIR)$(DOCDIR)"/
 	@install -m755 dbus-examples/cdbus-driver.sh "$(DESTDIR)$(DOCDIR)"/
 endif
 
 uninstall:
-	@rm -f "$(DESTDIR)$(BINDIR)/compton" "$(DESTDIR)$(BINDIR)/compton-trans"
-	@rm -f $(addprefix "$(DESTDIR)$(MANDIR)"/, compton.1 compton-trans.1)
-	@rm -f "$(DESTDIR)$(APPDIR)/compton.desktop"
+	@rm -f "$(DESTDIR)$(BINDIR)/companion" "$(DESTDIR)$(BINDIR)/companion-trans"
+	@rm -f $(addprefix "$(DESTDIR)$(MANDIR)"/, companion.1 companion-trans.1)
+	@rm -f "$(DESTDIR)$(APPDIR)/companion.desktop"
 ifneq "$(DOCDIR)" ""
-	@rm -f $(addprefix "$(DESTDIR)$(DOCDIR)"/, README.md compton.sample.conf cdbus-driver.sh)
+	@rm -f $(addprefix "$(DESTDIR)$(DOCDIR)"/, README.md companion.sample.conf cdbus-driver.sh)
 endif
 
 clean:
-	@rm -f $(OBJS) compton $(MANPAGES) $(MANPAGES_HTML) .clang_complete
+	@rm -f $(OBJS) companion $(MANPAGES) $(MANPAGES_HTML) .clang_complete
 
 version:
-	@echo "$(COMPTON_VERSION)"
+	@echo "$(COMPANION_VERSION)"
 
 .PHONY: uninstall clean docs version

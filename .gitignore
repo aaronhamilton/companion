@@ -11,14 +11,14 @@ depcomp
 install-sh
 missing
 stamp-h1
-compton
+companion
 *.o
 build/
 
 # CMake files
-compton-*.deb
-compton-*.rpm
-compton-*.tar.bz2
+companion-*.deb
+companion-*.rpm
+companion-*.tar.bz2
 release/
 _CPack_Packages/
 CMakeCache.txt
@@ -36,11 +36,11 @@ install_manifest.txt
 /core
 /*.core
 oprofile_data/
-compton.plist
+companion.plist
 callgrind.out.*
 man/*.html
 man/*.1
 doxygen/
 .clang_complete
 /src/backtrace-symbols.[ch]
-/compton*.trace
+/companion*.trace

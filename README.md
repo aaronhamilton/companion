@@ -1,13 +1,14 @@
-# Compton
+# Companion
 
-__Compton__ is a compositor for X, and a fork of __xcompmgr-dana__.
+__Companion__ is a compositor for X, and a fork of __Compton__.
 
-I was frustrated by the low amount of standalone lightweight compositors.
-Compton was forked from Dana Jansens' fork of xcompmgr and refactored.  I fixed
+“I was frustrated by the low amount of standalone lightweight compositors.
+Companion was forked from Dana Jansens' fork of xcompmgr and refactored.  I fixed
 whatever bug I found, and added features I wanted. Things seem stable, but don't
 quote me on it. I will most likely be actively working on this until I get the
 features I want. This is also a learning experience for me. That is, I'm
-partially doing this out of a desire to learn Xlib.
+partially doing this out of a desire to learn Xlib.” - [chjj][]
+[chjj]: https://github.com/chjj
 
 ## Changes from xcompmgr:
 
@@ -25,7 +26,7 @@ partially doing this out of a desire to learn Xlib.
 
 * fixed a segfault when opening certain window types
 * fixed the conflict with chromium and similar windows
-* [many more](https://github.com/chjj/compton/issues)
+* [many more](https://github.com/aaronhamilton/companion/issues)
 
 ## Building
 
@@ -67,17 +68,17 @@ $ make docs
 $ make install
 ```
 
-(Compton does include a `_CMakeLists.txt` in the tree, but we haven't decided whether we should switch to CMake yet. The `Makefile` is fully usable right now.)
+(Companion does include a `_CMakeLists.txt` in the tree, but we haven't decided whether we should switch to CMake yet. The `Makefile` is fully usable right now.)
 
 ## Known issues
 
 * Our [FAQ](wiki/faq) covers some known issues.
 
-* VSync does not work too well. You may check the [VSync Guide](https://github.com/chjj/compton/wiki/vsync-guide) for how to get (possibly) better effects.
+* VSync does not work too well. You may check the [VSync Guide](https://github.com/aaronhamilton/companion/wiki/vsync-guide) for how to get (possibly) better effects.
 
-* If `--unredir-if-possible` is enabled, when compton redirects/unredirects windows, the screen may flicker. Using `--paint-on-overlay` minimizes the problem from my observation, yet I do not know if there's a cure.
+* If `--unredir-if-possible` is enabled, when Companion redirects/unredirects windows, the screen may flicker. Using `--paint-on-overlay` minimizes the problem from my observation, yet I do not know if there's a cure.
 
-* compton may not track focus correctly in all situations. The focus tracking code is experimental. `--use-ewmh-active-win` might be helpful.
+* Companion may not track focus correctly in all situations. The focus tracking code is experimental. `--use-ewmh-active-win` might be helpful.
 
 * The performance of blur under X Render backend might be pretty bad. OpenGL backend could be faster.
 
@@ -85,17 +86,17 @@ $ make install
 
 ## Usage
 
-Please refer to the Asciidoc man pages (`man/compton.1.asciidoc` & `man/compton-trans.1.asciidoc`) for more details and examples.
+Please refer to the Asciidoc man pages (`man/companion.1.asciidoc` & `man/companion-trans.1.asciidoc`) for more details and examples.
 
-Note a sample configuration file `compton.sample.conf` is included in the repository.
+Note a sample configuration file `companion.sample.conf` is included in the repository.
 
 ## Support
 
 * Bug reports and feature requests should go to the "Issues" section above.
 
-* Our (semi?) official IRC channel is #compton on FreeNode.
+* Compton's (semi?) official IRC channel is #compton on FreeNode, and may be of use even for Companion.
 
-* Some information is available on the wiki, including [FAQ](https://github.com/chjj/compton/wiki/faq), [VSync Guide](https://github.com/chjj/compton/wiki/vsync-guide), and [Performance Guide](https://github.com/chjj/compton/wiki/perf-guide).
+* Some information is available on the wiki, including [FAQ](https://github.com/aaronhamilton/companion/wiki/faq), [VSync Guide](https://github.com/aaronhamilton/companion/wiki/vsync-guide), and [Performance Guide](https://github.com/aaronhamilton/companion/wiki/perf-guide).
 
 ## License
 
@@ -108,7 +109,8 @@ for this particular tree is something like:
 * ...
 * Dana Jansens
 * chjj and richardgv
+* aaronhamilton
 
 Not counting the tens of people who forked it in between.
 
-Compton is distributed under MIT license, as far as I (richardgv) know. See LICENSE for more info.
+Companion and Compton are distributed under the MIT license, as far as richardgv and I know. See LICENSE for more info.

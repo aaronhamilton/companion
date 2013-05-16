@@ -1,14 +1,15 @@
 /*
- * Compton - a compositor for X11
+ * Companion - a compositor for X11
  *
- * Based on `xcompmgr` - Copyright (c) 2003, Keith Packard
+ * Based on `compton` Copyright (c) 2011-2013, Christopher Jeffrey
+ * In-turn based on `xcompmgr` - Copyright (c) 2003, Keith Packard
  *
- * Copyright (c) 2011-2013, Christopher Jeffrey
+ * Copyright (c) 2013, Aaron Hamilton
  * See LICENSE for more information.
  *
  */
 
-#include "compton.h"
+#include "companion.h"
 #include <ctype.h>
 
 // === Global constants ===
@@ -339,7 +340,7 @@ find_toplevel2(session_t *ps, Window wid) {
     Window *tchildren;
     unsigned tnchildren;
 
-    // XQueryTree probably fails if you run compton when X is somehow
+    // XQueryTree probably fails if you run companion when X is somehow
     // initializing (like add it in .xinitrc). In this case
     // just leave it alone.
     if (!XQueryTree(ps->dpy, wid, &troot, &parent, &tchildren,
@@ -1418,7 +1419,7 @@ map_win(session_t *ps, Window id) {
   // changes are lost
   XSelectInput(ps->dpy, id, determine_evmask(ps, id, WIN_EVMODE_FRAME));
 
-  // Notify compton when the shape of a window changes
+  // Notify companion when the shape of a window changes
   if (ps->shape_exists) {
     XShapeSelectInput(ps->dpy, id, ShapeNotifyMask);
   }
@@ -1448,7 +1449,7 @@ map_win(session_t *ps, Window id) {
   // Detect if the window is shaped or has rounded corners
   win_update_shape_raw(ps, w);
 
-  // Occasionally compton does not seem able to get a FocusIn event from
+  // Occasionally companion does not seem able to get a FocusIn event from
   // a window just mapped. I suspect it's a timing issue again when the
   // XSelectInput() is called too late. We have to recheck the focused
   // window here. It makes no sense if we are using EWMH
@@ -3380,8 +3381,8 @@ usage(void) {
 #define WARNING_DISABLED " (DISABLED AT COMPILE TIME)"
 #define WARNING
   const static char *usage_text =
-    "compton (" COMPTON_VERSION ")\n"
-    "usage: compton [options]\n"
+    "companion (" COMPANION_VERSION ")\n"
+    "usage: companion [options]\n"
     "Options:\n"
     "\n"
     "-d display\n"
@@ -3431,7 +3432,7 @@ usage(void) {
     "  managers not passing _NET_WM_OPACITY of client windows to frame\n"
     "  windows.\n"
     "--refresh-rate val\n"
-    "  Specify refresh rate of the screen. If not specified or 0, compton\n"
+    "  Specify refresh rate of the screen. If not specified or 0, companion\n"
     "  will try detecting this with X RandR extension.\n"
     "--vsync vsync-method\n"
     "  Set VSync method. There are up to 4 VSync methods currently available.\n"
@@ -3471,7 +3472,7 @@ usage(void) {
     "--paint-on-overlay\n"
     "  Painting on X Composite overlay window.\n"
     "--sw-opti\n"
-    "  Limit compton to repaint at most once every 1 / refresh_rate\n"
+    "  Limit companion to repaint at most once every 1 / refresh_rate\n"
     "  second to boost performance. Experimental.\n"
     "--vsync-aggressive\n"
     "  Attempt to send painting request before VBlank and do XFlush()\n"
@@ -3690,8 +3691,8 @@ fork_after(session_t *ps) {
  */
 static FILE *
 open_config_file(char *cpath, char **ppath) {
-  const static char *config_filename = "/compton.conf";
-  const static char *config_filename_legacy = "/.compton.conf";
+  const static char *config_filename = "/companion.conf";
+  const static char *config_filename_legacy = "/.companion.conf";
   const static char *config_home_suffix = "/.config";
   const static char *config_system_dir = "/etc/xdg";
 
@@ -4164,7 +4165,7 @@ get_cfg(session_t *ps, int argc, char *const *argv, bool first_pass) {
 
     // Check for abundant positional arguments
     if (optind < argc)
-      printf_errfq(1, "(): compton doesn't accept positional arguments.");
+      printf_errfq(1, "(): companion doesn't accept positional arguments.");
 
     return;
   }
@@ -5788,7 +5789,7 @@ session_run(session_t *ps) {
 /**
  * Turn on the program reset flag.
  *
- * This will result in compton resetting itself after next paint.
+ * This will result in companion resetting itself after next paint.
  */
 static void
 reset_enable(int __attribute__((unused)) signum) {

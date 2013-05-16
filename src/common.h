@@ -1,15 +1,16 @@
 /*
- * Compton - a compositor for X11
+ * Companion - a compositor for X11
  *
- * Based on `xcompmgr` - Copyright (c) 2003, Keith Packard
+ * Based on `compton` Copyright (c) 2011-2013, Christopher Jeffrey
+ * In-turn based on `xcompmgr` - Copyright (c) 2003, Keith Packard
  *
- * Copyright (c) 2011-2013, Christopher Jeffrey
+ * Copyright (c) 2013, Aaron Hamilton
  * See LICENSE for more information.
  *
  */
 
-#ifndef COMPTON_COMMON_H
-#define COMPTON_COMMON_H
+#ifndef COMPANION_COMMON_H
+#define COMPANION_COMMON_H
 
 // === Options ===
 
@@ -284,7 +285,7 @@ typedef enum {
   NUM_VSYNC,
 } vsync_t;
 
-/// @brief Possible backends of compton.
+/// @brief Possible backends of companion.
 enum backend {
   BKEND_XRENDER,
   BKEND_GLX,
@@ -498,15 +499,15 @@ typedef struct {
   bool detect_client_leader;
 
   // === Calculated ===
-  /// Whether compton needs to track focus changes.
+  /// Whether companion needs to track focus changes.
   bool track_focus;
-  /// Whether compton needs to track window name and class.
+  /// Whether companion needs to track window name and class.
   bool track_wdata;
-  /// Whether compton needs to track window leaders.
+  /// Whether companion needs to track window leaders.
   bool track_leader;
 } options_t;
 
-/// Structure containing all necessary data for a compton session.
+/// Structure containing all necessary data for a companion session.
 typedef struct {
   // === Display related ===
   /// Display in use.
@@ -527,7 +528,7 @@ typedef struct {
   // Damage root_damage;
   /// X Composite overlay window. Used if <code>--paint-on-overlay</code>.
   Window overlay;
-  /// Whether the root tile is filled by compton.
+  /// Whether the root tile is filled by companion.
   bool root_tile_fill;
   /// Picture of the root window background.
   paint_t root_tile_paint;
@@ -757,7 +758,7 @@ typedef struct {
 #endif
 } session_t;
 
-/// Structure representing a top-level window compton manages.
+/// Structure representing a top-level window companion manages.
 typedef struct _win {
   /// Pointer to the next structure in the linked list.
   struct _win *next;

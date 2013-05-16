@@ -1,5 +1,5 @@
 /**
- * compton.h
+ * companion.h
  */
 
 // Throw everything in here.

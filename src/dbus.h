@@ -1,9 +1,10 @@
 /*
- * Compton - a compositor for X11
+ * Companion - a compositor for X11
  *
- * Based on `xcompmgr` - Copyright (c) 2003, Keith Packard
+ * Based on `compton` Copyright (c) 2011-2013, Christopher Jeffrey
+ * In-turn based on `xcompmgr` - Copyright (c) 2003, Keith Packard
  *
- * Copyright (c) 2011-2013, Christopher Jeffrey
+ * Copyright (c) 2013, Aaron Hamilton
  * See LICENSE for more information.
  *
  */
@@ -11,14 +12,14 @@
 #include "common.h"
 #include <ctype.h>
 
-#define CDBUS_SERVICE_NAME      "com.github.chjj.compton"
+#define CDBUS_SERVICE_NAME      "com.github.aaronhamilton.companion"
 #define CDBUS_INTERFACE_NAME    CDBUS_SERVICE_NAME
-#define CDBUS_OBJECT_NAME       "/com/github/chjj/compton"
+#define CDBUS_OBJECT_NAME       "/com/github/aaronhamilton/companion"
 #define CDBUS_ERROR_PREFIX      CDBUS_INTERFACE_NAME ".error"
 #define CDBUS_ERROR_UNKNOWN     CDBUS_ERROR_PREFIX ".unknown"
 #define CDBUS_ERROR_UNKNOWN_S   "Well, I don't know what happened. Do you?"
 #define CDBUS_ERROR_BADMSG      CDBUS_ERROR_PREFIX ".bad_message"
-#define CDBUS_ERROR_BADMSG_S    "Unrecognized command. Beware compton " \
+#define CDBUS_ERROR_BADMSG_S    "Unrecognized command. Beware companion " \
                                 "cannot make you a sandwich."
 #define CDBUS_ERROR_BADARG      CDBUS_ERROR_PREFIX ".bad_argument"
 #define CDBUS_ERROR_BADARG_S    "Failed to parse argument %d: %s"
