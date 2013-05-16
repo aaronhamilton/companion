@@ -232,7 +232,6 @@ typedef enum {
 
 /// Structure representing needed window updates.
 typedef struct {
-  bool shadow       : 1;
   bool fade         : 1;
   bool focus        : 1;
   bool invert_color : 1;
@@ -431,22 +430,6 @@ typedef struct {
   /// Whether to do VSync aggressively.
   bool vsync_aggressive;
 
-  // === Shadow ===
-  /// Enable/disable shadow for specific window types.
-  bool wintype_shadow[NUM_WINTYPES];
-  /// Red, green and blue tone of the shadow.
-  double shadow_red, shadow_green, shadow_blue;
-  int shadow_radius;
-  int shadow_offset_x, shadow_offset_y;
-  double shadow_opacity;
-  bool clear_shadow;
-  /// Shadow blacklist. A linked list of conditions.
-  c2_lptr_t *shadow_blacklist;
-  /// Whether bounding-shaped window should be ignored.
-  bool shadow_ignore_shaped;
-  /// Whether to respect _COMPTON_SHADOW.
-  bool respect_prop_shadow;
-
   // === Fading ===
   /// Enable/disable fading for specific window types.
   bool wintype_fade[NUM_WINTYPES];
@@ -473,8 +456,7 @@ typedef struct {
   /// Whether inactive_opacity overrides the opacity set by window
   /// attributes.
   bool inactive_opacity_override;
-  /// Frame opacity. Relative to window opacity, also affects shadow
-  /// opacity.
+  /// Frame opacity. Relative to window opacity.
   double frame_opacity;
   /// Whether to detect _NET_WM_OPACITY on client windows. Used on window
   /// managers that don't pass _NET_WM_OPACITY to frame windows.
@@ -631,23 +613,11 @@ typedef struct {
   /// subsidiary window detection.
   Window active_leader;
 
-  // === Shadow/dimming related ===
+  // === Dimming related ===
   /// 1x1 black Picture.
   Picture black_picture;
-  /// 1x1 Picture of the shadow color.
-  Picture cshadow_picture;
   /// 1x1 white Picture.
   Picture white_picture;
-  /// Gaussian map of shadow.
-  conv *gaussian_map;
-  // for shadow precomputation
-  /// Shadow depth on one side.
-  int cgsize;
-  /// Pre-computed color table for corners of shadow.
-  unsigned char *shadow_corner;
-  /// Pre-computed color table for a side of shadow.
-  unsigned char *shadow_top;
-
   // === Software-optimization-related ===
   /// Currently used refresh rate.
   short refresh_rate;
@@ -771,8 +741,6 @@ typedef struct {
   Atom atom_client_leader;
   /// Atom of property <code>_NET_ACTIVE_WINDOW</code>.
   Atom atom_ewmh_active_win;
-  /// Atom of property <code>_COMPTON_SHADOW</code>.
-  Atom atom_compton_shadow;
   /// Atom of property <code>_NET_WM_WINDOW_TYPE</code>.
   Atom atom_win_type;
   /// Array of atoms of all possible window types.
@@ -815,7 +783,7 @@ typedef struct _win {
   paint_t paint;
   /// Bounding shape of the window.
   XserverRegion border_size;
-  /// Region of the whole window, shadow region included.
+  /// Region of the whole window.
   XserverRegion extents;
   /// Window flags. Definitions above.
   int_fast16_t flags;
@@ -904,27 +872,6 @@ typedef struct _win {
   /// Frame widths. Determined by client window attributes.
   unsigned int left_width, right_width, top_width, bottom_width;
 
-  // Shadow-related members
-  /// Whether a window has shadow. Calculated.
-  bool shadow;
-  /// Override value of window shadow state. Set by D-Bus method calls.
-  switch_t shadow_force;
-  /// Opacity of the shadow. Affected by window opacity and frame opacity.
-  double shadow_opacity;
-  /// X offset of shadow. Affected by commandline argument.
-  int shadow_dx;
-  /// Y offset of shadow. Affected by commandline argument.
-  int shadow_dy;
-  /// Width of shadow. Affected by window size and commandline argument.
-  int shadow_width;
-  /// Height of shadow. Affected by window size and commandline argument.
-  int shadow_height;
-  /// Picture to render shadow. Affected by window size.
-  paint_t shadow_paint;
-  /// The value of _COMPTON_SHADOW attribute of the window. Below 0 for
-  /// none.
-  long prop_shadow;
-
   // Dim-related members
   /// Whether the window is to be dimmed.
   bool dim;
@@ -942,8 +889,6 @@ typedef struct _win {
 /// Temporary structure used for communication between
 /// <code>get_cfg()</code> and <code>parse_config()</code>.
 struct options_tmp {
-  bool no_dock_shadow;
-  bool no_dnd_shadow;
   double menu_opacity;
 };
 
@@ -1854,8 +1799,6 @@ cdbus_ev_win_focusin(session_t *ps, win *w);
 /** @name DBus hooks
  */
 ///@{
-void
-win_set_shadow_force(session_t *ps, win *w, switch_t val);
 
 void
 win_set_focused_force(session_t *ps, win *w, switch_t val);

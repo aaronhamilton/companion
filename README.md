@@ -15,11 +15,7 @@ partially doing this out of a desire to learn Xlib.
 * Inactive window transparency (`-i`) / dimming (`--inactive-dim`).
 * Titlebar/frame transparency (`-e`).
 * Menu transparency (`-m`, thanks to Dana).
-* shadows are now enabled for argb windows, e.g. terminals with transparency
-* removed serverside shadows (and simple compositing) to clean the code,
-  the only option that remains is clientside shadows
 * configuration files (see the man page for more details)
-* colored shadows (`--shadow-[red/green/blue]`)
 * a new fade system
 * VSync support (not always working)
 * Blur of background of transparent windows, window color inversion (bad in performance)
@@ -28,8 +24,6 @@ partially doing this out of a desire to learn Xlib.
 ## Fixes from the original xcompmgr:
 
 * fixed a segfault when opening certain window types
-* fixed a memory leak caused by not freeing up shadows (from the freedesktop
-  repo)
 * fixed the conflict with chromium and similar windows
 * [many more](https://github.com/chjj/compton/issues)
 

@@ -224,7 +224,6 @@ free_win_res(session_t *ps, win *w) {
   free_region(ps, &w->extents);
   free_paint(ps, &w->paint);
   free_region(ps, &w->border_size);
-  free_paint(ps, &w->shadow_paint);
   free_damage(ps, &w->damage);
   free_region(ps, &w->reg_ignore);
   free(w->name);
@@ -308,25 +307,6 @@ check_fade_fin(session_t *ps, win *w) {
 static void
 set_fade_callback(session_t *ps, win *w,
     void (*callback) (session_t *ps, win *w), bool exec_callback);
-
-static double
-gaussian(double r, double x, double y);
-
-static conv *
-make_gaussian_map(double r);
-
-static unsigned char
-sum_gaussian(conv *map, double opacity,
-             int x, int y, int width, int height);
-
-static void
-presum_gaussian(session_t *ps, conv *map);
-
-static XImage *
-make_shadow(session_t *ps, double opacity, int width, int height);
-
-static bool
-win_build_shadow(session_t *ps, win *w, double opacity);
 
 static Picture
 solid_picture(session_t *ps, bool argb, double a,
@@ -439,9 +419,6 @@ win_is_fullscreen(session_t *ps, const win *w) {
   return rect_is_fullscreen(ps, w->a.x, w->a.y, w->widthb, w->heightb)
       && !w->bounding_shaped;
 }
-
-static void
-win_rounded_corners(session_t *ps, win *w);
 
 /**
  * Validate a pixmap.
@@ -693,15 +670,6 @@ static void
 win_update_shape(session_t *ps, win *w);
 
 static void
-win_update_prop_shadow_raw(session_t *ps, win *w);
-
-static void
-win_update_prop_shadow(session_t *ps, win *w);
-
-static void
-win_determine_shadow(session_t *ps, win *w);
-
-static void
 win_determine_invert_color(session_t *ps, win *w);
 
 static void
@@ -714,13 +682,7 @@ static void
 win_on_factor_change(session_t *ps, win *w);
 
 static void
-win_upd_run(session_t *ps, win *w, win_upd_t *pupd);
-
-static void
 calc_win_size(session_t *ps, win *w);
-
-static void
-calc_shadow_geometry(session_t *ps, win *w);
 
 static void
 win_mark_client(session_t *ps, win *w, Window client);

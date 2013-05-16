@@ -703,7 +703,6 @@ cdbus_process_win_get(session_t *ps, DBusMessage *msg) {
   cdbus_m_win_get_do(wmwin, cdbus_reply_bool);
   cdbus_m_win_get_do(leader, cdbus_reply_wid);
   cdbus_m_win_get_do(focused_real, cdbus_reply_bool);
-  cdbus_m_win_get_do(shadow_force, cdbus_reply_enum);
   cdbus_m_win_get_do(focused_force, cdbus_reply_enum);
   cdbus_m_win_get_do(invert_color_force, cdbus_reply_enum);
   cdbus_m_win_get_do(name, cdbus_reply_string);
@@ -717,7 +716,6 @@ cdbus_process_win_get(session_t *ps, DBusMessage *msg) {
   cdbus_m_win_get_do(top_width, cdbus_reply_uint32);
   cdbus_m_win_get_do(bottom_width, cdbus_reply_uint32);
 
-  cdbus_m_win_get_do(shadow, cdbus_reply_bool);
   cdbus_m_win_get_do(fade, cdbus_reply_bool);
   cdbus_m_win_get_do(invert_color, cdbus_reply_bool);
   cdbus_m_win_get_do(blur_background, cdbus_reply_bool);
@@ -765,14 +763,6 @@ cdbus_process_win_set(session_t *ps, DBusMessage *msg) {
       return false; \
     w->tgt = val; \
     goto cdbus_process_win_set_success; \
-  }
-
-  if (!strcmp("shadow_force", target)) {
-    cdbus_enum_t val = UNSET;
-    if (!cdbus_msg_get_arg(msg, 2, CDBUS_TYPE_ENUM, &val))
-      return false;
-    win_set_shadow_force(ps, w, val);
-    goto cdbus_process_win_set_success;
   }
 
   if (!strcmp("focused_force", target)) {
@@ -889,15 +879,6 @@ cdbus_process_opts_get(session_t *ps, DBusMessage *msg) {
   cdbus_m_opts_get_do(dbe, cdbus_reply_bool);
   cdbus_m_opts_get_do(vsync_aggressive, cdbus_reply_bool);
 
-  cdbus_m_opts_get_do(shadow_red, cdbus_reply_double);
-  cdbus_m_opts_get_do(shadow_green, cdbus_reply_double);
-  cdbus_m_opts_get_do(shadow_blue, cdbus_reply_double);
-  cdbus_m_opts_get_do(shadow_radius, cdbus_reply_int32);
-  cdbus_m_opts_get_do(shadow_offset_x, cdbus_reply_int32);
-  cdbus_m_opts_get_do(shadow_offset_y, cdbus_reply_int32);
-  cdbus_m_opts_get_do(shadow_opacity, cdbus_reply_double);
-  cdbus_m_opts_get_do(clear_shadow, cdbus_reply_bool);
-
   cdbus_m_opts_get_do(blur_background, cdbus_reply_bool);
   cdbus_m_opts_get_do(blur_background_frame, cdbus_reply_bool);
   cdbus_m_opts_get_do(blur_background_fixed, cdbus_reply_bool);
@@ -955,18 +936,6 @@ cdbus_process_opts_set(session_t *ps, DBusMessage *msg) {
     if (ps->o.unredir_if_possible != val) {
       ps->o.unredir_if_possible = val;
       ps->ev_received = true;
-    }
-    goto cdbus_process_opts_set_success;
-  }
-
-  // clear_shadow
-  if (!strcmp("clear_shadow", target)) {
-    dbus_bool_t val = FALSE;
-    if (!cdbus_msg_get_arg(msg, 1, DBUS_TYPE_BOOLEAN, &val))
-      return false;
-    if (ps->o.clear_shadow != val) {
-      ps->o.clear_shadow = val;
-      force_repaint(ps);
     }
     goto cdbus_process_opts_set_success;
   }
