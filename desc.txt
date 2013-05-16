@@ -1,1 +1,1 @@
-Compton is a X compositing window manager, fork of xcompmgr-dana.
+Companion is a standalone X compositor, forked from Compton.
