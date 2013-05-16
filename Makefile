@@ -69,7 +69,7 @@ endif
 
 # === Version string ===
 COMPANION_VERSION ?= git-$(shell git describe --always --dirty)-$(shell git log -1 --date=short --pretty=format:%cd)
-CFG += -DCOMPANIONN_VERSION="\"$(COMPANION_VERSION)\""
+CFG += -DCOMPANION_VERSION="\"$(COMPANION_VERSION)\""
 
 LDFLAGS ?= -Wl,-O1 -Wl,--as-needed
 
